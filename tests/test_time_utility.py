@@ -18,6 +18,9 @@ class TestTimeUtility(unittest.TestCase):
     def test_is_aware(self):
         self.assertTrue(TimeUtility.is_aware(TimeUtility.now()))
 
+    def test_make_aware(self):
+        self.assertTrue(TimeUtility.is_aware(TimeUtility.make_aware(datetime.now())))
+
     def test_now(self):
         self.assertEqual(type(TimeUtility.now()), type(datetime.now()))
 
