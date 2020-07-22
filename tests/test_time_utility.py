@@ -118,6 +118,10 @@ class TestTimeUtility(unittest.TestCase):
         self.assertEqual(aware_local.hour, adjusted.hour)
         self.assertEqual(aware_local.minute, adjusted.minute)
         self.assertEqual(aware_local.second, adjusted.second)
+        
+    def test_is_leap_year(self):
+        self.assertTrue(TimeUtility.is_leap_year(2020))
+        self.assertFalse(TimeUtility.is_leap_year(2019))
 
 
 if __name__ == '__main__':

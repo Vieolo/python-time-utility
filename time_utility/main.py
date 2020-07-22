@@ -251,3 +251,18 @@ class TimeUtility:
             return int(abs((final_large - final_small).seconds)/3600)
         else:
             raise ValueError()
+
+    @staticmethod
+    def is_leap_year(year: int = None):
+        """
+        Checks whether the given year is a leap year.
+
+        :param year: The target year. Pass None or ignore to use the current year in UTC timezone
+        """
+        if year is None:
+            year = TimeUtility.now().year
+
+        if isinstance(year, int) is False:
+            raise ValueError()
+
+        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
