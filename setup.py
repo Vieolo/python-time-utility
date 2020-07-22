@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="time-utility",  # Replace with your own username
+    name="time_utility",  # Replace with your own username
     version="0.1.0",
     author="Ramtin Abadi",
     author_email="Ramtin.Abadi@gmail.com",
