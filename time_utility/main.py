@@ -198,7 +198,7 @@ class TimeUtility:
         return new_time
 
     @staticmethod
-    def get_period(year: int, month: int, day: int, period: str, offset: int = 0, local_to_utc: bool = False) -> Tuple[datetime, datetime]:
+    def get_period(year: int, month: int, day: int, period: str, offset: int = 0) -> Tuple[datetime, datetime]:
         """
         Returns the beginning and the ending datetime of a period
 
@@ -207,7 +207,6 @@ class TimeUtility:
         :param day: The target day
         :param period: The desired period time-span. Please use the period constants of TimeUtility such as `TimeUtility.DAILY'
         :param offset: The optional timezone offset in minutes. (Note that the Javascript offset obtained via `new Date().getTimezoneOffset()` should be multiplied by -1)
-        :param local_to_utc: Set to True if the original datetime is in local time and set to False if the original datetime is in UTC timezone
         """
         if period == TimeUtility.DAILY:
             start = TimeUtility.get_date_start(year, month, day)
@@ -224,7 +223,7 @@ class TimeUtility:
         if offset == 0:
             return start, end
 
-        return TimeUtility.adjust_offset(start, offset, local_to_utc), TimeUtility.adjust_offset(end, offset, local_to_utc)
+        return TimeUtility.adjust_offset(start, offset, False), TimeUtility.adjust_offset(end, offset, False)
 
     @staticmethod
     def difference(large_time: datetime, small_time: datetime, time_span: str = 'second') -> int:
