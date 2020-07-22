@@ -21,6 +21,34 @@ class TimeUtility:
     DAY = "day"
 
     @staticmethod
+    def is_naive(target_datetime: datetime) -> bool:
+        """
+        Checks if the given datetime object is naive or not
+
+        :param target_datetime: The target datetime object to be checked
+        """
+        return target_datetime.tzinfo is None
+
+    @staticmethod
+    def is_aware(target_datetime: datetime) -> bool:
+        """
+        Checks if the given datetime object is aware or not
+
+        :param target_datetime: The target datetime object to be checked
+        """
+        return target_datetime.tzinfo is not None
+
+    @staticmethod
+    def make_aware(target_datetime: datetime, timezone=pytz.utc) -> datetime:
+        """
+        Return a new datetime object with the timezone information
+
+        :param target_datetime: The target datetime object
+        :param timezone: The target timezone. The default value is UTC
+        """
+        return target_datetime.replace(tzinfo=timezone)
+
+    @staticmethod
     def now(timezone=pytz.utc) -> datetime:
         """
         Returns the current date and time with the given time zone
@@ -106,10 +134,12 @@ class TimeUtility:
         :param year: The target year, ignore or pass None to use the current year
         :param month: The target month, ignore or pass None to use the current month
         """
+        final_year = year if year is not None else datetime.now(tz=timezone).year
+        final_month = month if month is not None else datetime.now(tz=timezone).month
         return datetime.now(tz=timezone).replace(
-            year=year if year is not None else datetime.now(tz=timezone).year,
-            month=month if month is not None else datetime.now(tz=timezone).month,
-            day=monthrange(year, month)[1],
+            year=final_year,
+            month=final_month,
+            day=monthrange(final_year, final_month)[1],
             hour=23,
             minute=59,
             second=59,
@@ -205,15 +235,19 @@ class TimeUtility:
         :param small_time: The smaller datetime object
         :param time_span: The time-span of difference. Please use the time unit constants of TimeUtility such as `TimeUtility.HOUR`
         """
+
+        final_large = large_time if TimeUtility.is_aware(large_time) else TimeUtility.make_aware(large_time)
+        final_small = small_time if TimeUtility.is_aware(small_time) else TimeUtility.make_aware(small_time)
+
         if time_span == TimeUtility.SECOND:
-            return abs((large_time - small_time).seconds)
+            return abs((final_large - final_small).seconds)
         elif time_span == TimeUtility.MICROSECOND:
-            return abs((large_time - small_time).microseconds)
+            return abs((final_large - final_small).microseconds)
         elif time_span == TimeUtility.DAY:
-            return abs((large_time - small_time).days)
+            return abs((final_large - final_small).days)
         elif time_span == TimeUtility.MINUTE:
-            return int(abs((large_time - small_time).seconds)/60)
+            return int(abs((final_large - final_small).seconds)/60)
         elif time_span == TimeUtility.HOUR:
-            return int(abs((large_time - small_time).seconds)/3600)
+            return int(abs((final_large - final_small).seconds)/3600)
         else:
             raise ValueError()
