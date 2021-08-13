@@ -132,6 +132,12 @@ class TestTimeUtility(unittest.TestCase):
         self.assertEqual(week.week_start, date(2021, 8, 9))
         self.assertEqual(week.week_end, date(2021, 8, 15))
 
+        week_2 = TimeUtility.get_week_by_week_number(2021, 32)
+        self.assertEqual(week_2.od, date(2021, 8, 9))
+        self.assertEqual(week_2.week_number, 32)
+        self.assertEqual(week_2.week_start, date(2021, 8, 9))
+        self.assertEqual(week_2.week_end, date(2021, 8, 15))
+
 
 if __name__ == '__main__':
     unittest.main()
