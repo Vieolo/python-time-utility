@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="time_utility",  # Replace with your own username
-    version="0.1.0",
-    author="Ramtin Abadi",
-    author_email="Ramtin.Abadi@gmail.com",
+    version="0.2.0",
+    author="Vieolo OÜ",
+    author_email="info@vieolo.com",
     description="Time utility functions",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ramtinabadi/python-time-utility.git",
+    url="https://github.com/Vieolo/python-time-utility.git",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
