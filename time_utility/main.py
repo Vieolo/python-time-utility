@@ -6,6 +6,9 @@ from typing import Tuple
 # Third Party
 import pytz
 
+# This Package
+from .week import TimeUtilityWeek
+
 
 class TimeUtility:
     """Date and Time utility functions"""
@@ -267,3 +270,7 @@ class TimeUtility:
             raise ValueError()
 
         return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+
+    @staticmethod
+    def get_week(d: date) -> TimeUtilityWeek:
+        return TimeUtilityWeek(d)

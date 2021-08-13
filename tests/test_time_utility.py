@@ -1,6 +1,6 @@
 # Python
 import unittest
-from datetime import datetime
+from datetime import datetime, date
 from calendar import monthrange
 
 # Third Party
@@ -122,6 +122,15 @@ class TestTimeUtility(unittest.TestCase):
     def test_is_leap_year(self):
         self.assertTrue(TimeUtility.is_leap_year(2020))
         self.assertFalse(TimeUtility.is_leap_year(2019))
+
+    def test_week(self):
+        od = date(2021, 8, 13)
+
+        week = TimeUtility.get_week(od)
+        self.assertEqual(week.od, od)
+        self.assertEqual(week.week_number, 32)
+        self.assertEqual(week.week_start, date(2021, 8, 9))
+        self.assertEqual(week.week_end, date(2021, 8, 15))
 
 
 if __name__ == '__main__':
