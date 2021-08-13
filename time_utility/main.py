@@ -278,3 +278,7 @@ class TimeUtility:
     @staticmethod
     def get_week_by_week_number(year: int, week: int) -> TimeUtilityWeek:
         return TimeUtilityWeek.get_week_from_week_number(year, week)
+
+    @staticmethod
+    def get_four_week_period(d: date) -> (TimeUtilityWeek, TimeUtilityWeek):
+        return TimeUtilityWeek.get_four_week_period(d)

@@ -138,6 +138,112 @@ class TestTimeUtility(unittest.TestCase):
         self.assertEqual(week_2.week_start, date(2021, 8, 9))
         self.assertEqual(week_2.week_end, date(2021, 8, 15))
 
+        week_3 = TimeUtility.get_week_by_week_number(2020, 23)
+        self.assertEqual(week_3.od, date(2020, 6, 1))
+        self.assertEqual(week_3.week_number, 23)
+        self.assertEqual(week_3.week_start, date(2020, 6, 1))
+        self.assertEqual(week_3.week_end, date(2020, 6, 7))
+
+    def test_four_week_period(self):
+        # 1. The week is neither in the first nor in the last four weeks of the year
+        one_date = date(2020, 6, 5)
+        one_start_date, one_start_week, one_end_date, one_end_week = TimeUtility.get_four_week_period(one_date)
+
+        self.assertEqual(one_start_week, 21)
+        self.assertEqual(one_start_date, date(2020, 5, 18))
+        self.assertEqual(one_end_week, 24)
+        self.assertEqual(one_end_date, date(2020, 6, 14))
+
+        # 2. First week of the year starts in the previous year, (given date in month of Jan)
+        two_date = date(2020, 1, 1)
+        two_start_date, two_start_week, two_end_date, two_end_week = TimeUtility.get_four_week_period(two_date)
+
+        self.assertEqual(two_start_week, 1)
+        self.assertEqual(two_start_date, date(2020, 1, 1))
+        self.assertEqual(two_end_week, 4)
+        self.assertEqual(two_end_date, date(2020, 1, 26))
+
+        # 3. First week of the year starts in the previous year, (given date in month of Dec)
+        three_date = date(2019, 12, 31)
+        three_start_date, three_start_week, three_end_date, three_end_week = TimeUtility.get_four_week_period(three_date)
+
+        self.assertEqual(three_start_week, 49)
+        self.assertEqual(three_start_date, date(2019, 12, 2))
+        self.assertEqual(three_end_week, 1)
+        self.assertEqual(three_end_date, date(2019, 12, 31))
+
+        # 4. First day of the year is the first day of the week 1
+        four_date = date(2018, 1, 1)
+        four_start_date, four_start_week, four_end_date, four_end_week = TimeUtility.get_four_week_period(four_date)
+
+        self.assertEqual(four_start_week, 1)
+        self.assertEqual(four_start_date, date(2018, 1, 1))
+        self.assertEqual(four_end_week, 4)
+        self.assertEqual(four_end_date, date(2018, 1, 28))
+
+        # 5. The week 1 starts after Jan 1
+        five_date = date(2021, 1, 7)
+        five_start_date, five_start_week, five_end_date, five_end_week = TimeUtility.get_four_week_period(five_date)
+
+        self.assertEqual(five_start_week, 53)
+        self.assertEqual(five_start_date, date(2021, 1, 1))
+        self.assertEqual(five_end_week, 4)
+        self.assertEqual(five_end_date, date(2021, 1, 31))
+
+        # 6. The first few days of the year is in the last week of the last year
+        six_date = date(2021, 1, 1)
+        six_start_date, six_start_week, six_end_date, six_end_week = TimeUtility.get_four_week_period(six_date)
+
+        self.assertEqual(six_start_week, 53)
+        self.assertEqual(six_start_date, date(2021, 1, 1))
+        self.assertEqual(six_end_week, 4)
+        self.assertEqual(six_end_date, date(2021, 1, 31))
+
+        # 7. The last week of the year ends before the year
+        seven_date = date(2019, 12, 29)
+        seven_start_date, seven_start_week, seven_end_date, seven_end_week = TimeUtility.get_four_week_period(seven_date)
+
+        self.assertEqual(seven_start_week, 49)
+        self.assertEqual(seven_start_date, date(2019, 12, 2))
+        self.assertEqual(seven_end_week, 1)
+        self.assertEqual(seven_end_date, date(2019, 12, 31))
+
+        # 8. The last week of the year ends at Dec 31
+        eight_date = date(2017, 12, 20)
+        eight_start_date, eight_start_week, eight_end_date, eight_end_week = TimeUtility.get_four_week_period(eight_date)
+
+        self.assertEqual(eight_start_week, 49)
+        self.assertEqual(eight_start_date, date(2017, 12, 4))
+        self.assertEqual(eight_end_week, 52)
+        self.assertEqual(eight_end_date, date(2017, 12, 31))
+
+        # 9. The last week of the year ends after Dec 31
+        nine_date = date(2020, 12, 31)
+        nine_start_date, nine_start_week, nine_end_date, nine_end_week = TimeUtility.get_four_week_period(nine_date)
+
+        self.assertEqual(nine_start_week, 49)
+        self.assertEqual(nine_start_date, date(2020, 11, 30))
+        self.assertEqual(nine_end_week, 53)
+        self.assertEqual(nine_end_date, date(2020, 12, 31))
+
+        # 10. The week number of the given date is 4
+        ten_date = date(2021, 1, 27)
+        ten_start_date, ten_start_week, ten_end_date, ten_end_week = TimeUtility.get_four_week_period(ten_date)
+
+        self.assertEqual(ten_start_week, 53)
+        self.assertEqual(ten_start_date, date(2021, 1, 1))
+        self.assertEqual(ten_end_week, 4)
+        self.assertEqual(ten_end_date, date(2021, 1, 31))
+
+        # 11. The week number of the given date is the multiple of 4
+        eleven_date = date(2021, 2, 27)
+        eleven_start_date, eleven_start_week, eleven_end_date, eleven_end_week = TimeUtility.get_four_week_period(eleven_date)
+
+        self.assertEqual(eleven_start_week, 5)
+        self.assertEqual(eleven_start_date, date(2021, 2, 1))
+        self.assertEqual(eleven_end_week, 8)
+        self.assertEqual(eleven_end_date, date(2021, 2, 28))
+
 
 if __name__ == '__main__':
     unittest.main()
