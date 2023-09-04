@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="time_utility",  # Replace with your own username
-    version="0.2.0",
+    version="0.2.1",
     author="Vieolo OÜ",
     author_email="info@vieolo.com",
     description="Time utility functions",
@@ -18,5 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.10',
 )
