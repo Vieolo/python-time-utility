@@ -1,0 +1,24 @@
+{
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./cost",
+        "-p",
+        "*test*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": false,
+    "python.testing.promptToConfigure": false,
+    "ruff.enable": true,
+    "pylint.args": [
+        "--disable=unsubscriptable-object"
+    ],
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.inlayHints.callArgumentNames": false,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.inlayHints.variableTypes": false,
+    "python.analysis.exclude": [
+        "**/migrations"
+    ]
+}

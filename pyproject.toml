@@ -1,0 +1,7 @@
+[tool.ruff]
+select = ["E", "F", "TCH", "SLF", "C4", "SIM", "B"]
+ignore = [
+    "E501",
+]
+
+[tool.pyright]
