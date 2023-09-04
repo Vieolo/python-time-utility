@@ -1,4 +1,4 @@
-# Time Utility 0.1.0
+# Time Utility 0.2.1
 
 Time utility is a series of utility methods regarding date and time for python.
 
