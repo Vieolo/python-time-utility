@@ -17,7 +17,7 @@ class TimeUtilityWeek:
         return cls(d)
 
     @classmethod
-    def get_four_week_period(cls, d: date) -> (date, int, date, int):
+    def get_four_week_period(cls, d: date) -> tuple[date, int, date, int]:
         week = cls(d)
 
         first_week = 1

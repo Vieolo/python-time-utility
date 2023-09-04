@@ -72,7 +72,7 @@ class TimeUtility:
         return datetime.now(tz=timezone).date()
 
     @staticmethod
-    def get_date_start(timezone=pytz.utc, year: int = None, month: int = None, day: int = None) -> datetime:
+    def get_date_start(timezone=pytz.utc, year: int | None = None, month: int | None = None, day: int | None = None) -> datetime:
         """
         Returns the date and time of the beginning of the day with the given timezone
 
@@ -92,7 +92,7 @@ class TimeUtility:
         )
 
     @staticmethod
-    def get_date_end(timezone=pytz.utc, year: int = None, month: int = None, day: int = None) -> datetime:
+    def get_date_end(timezone=pytz.utc, year: int | None = None, month: int | None = None, day: int | None = None) -> datetime:
         """
         Returns the date and time of the ending of the day with the given timezone
 
@@ -112,7 +112,7 @@ class TimeUtility:
         )
 
     @staticmethod
-    def get_month_start(timezone=pytz.utc, year: int = None, month: int = None) -> datetime:
+    def get_month_start(timezone=pytz.utc, year: int | None = None, month: int | None = None) -> datetime:
         """
         Returns the date and time of the beginning of the month with the given timezone
 
@@ -131,7 +131,7 @@ class TimeUtility:
         )
 
     @staticmethod
-    def get_month_end(timezone=pytz.utc, year: int = None, month: int = None) -> datetime:
+    def get_month_end(timezone=pytz.utc, year: int | None = None, month: int | None = None) -> datetime:
         """
         Returns the date and time of the ending of the month with the given timezone
 
@@ -152,7 +152,7 @@ class TimeUtility:
         )
 
     @staticmethod
-    def get_year_start(timezone=pytz.utc, year: int = None):
+    def get_year_start(timezone=pytz.utc, year: int | None = None):
         """
         Returns the date and time of the beginning of the year with the given timezone
 
@@ -170,7 +170,7 @@ class TimeUtility:
         )
 
     @staticmethod
-    def get_year_end(timezone=pytz.utc, year: int = None):
+    def get_year_end(timezone=pytz.utc, year: int | None = None):
         """
         Returns the date and time of the ending of the year with the given timezone
 
@@ -214,14 +214,14 @@ class TimeUtility:
         :param offset: The optional timezone offset in minutes. (Note that the Javascript offset obtained via `new Date().getTimezoneOffset()` should be multiplied by -1)
         """
         if period == TimeUtility.DAILY:
-            start = TimeUtility.get_date_start(year, month, day)
-            end = TimeUtility.get_date_end(year, month, day)
+            start = TimeUtility.get_date_start(year=year, month=month, day=day)
+            end = TimeUtility.get_date_end(year=year, month=month, day=day)
         elif period == TimeUtility.MONTHLY:
-            start = TimeUtility.get_month_start(year, month)
-            end = TimeUtility.get_month_end(year, month)
+            start = TimeUtility.get_month_start(year=year, month=month)
+            end = TimeUtility.get_month_end(year=year, month=month)
         elif period == TimeUtility.ANNUAL:
-            start = TimeUtility.get_year_start(year)
-            end = TimeUtility.get_year_end(year)
+            start = TimeUtility.get_year_start(year=year)
+            end = TimeUtility.get_year_end(year=year)
         else:
             raise ValueError()
 
@@ -257,7 +257,7 @@ class TimeUtility:
             raise ValueError()
 
     @staticmethod
-    def is_leap_year(year: int = None):
+    def is_leap_year(year: int | None = None):
         """
         Checks whether the given year is a leap year.
 
@@ -280,5 +280,5 @@ class TimeUtility:
         return TimeUtilityWeek.get_week_from_week_number(year, week)
 
     @staticmethod
-    def get_four_week_period(d: date) -> (TimeUtilityWeek, TimeUtilityWeek):
+    def get_four_week_period(d: date) -> tuple[date, int, date, int]:
         return TimeUtilityWeek.get_four_week_period(d)
